@@ -19,12 +19,14 @@
           <% @projects.each do |project| %>
             <li><%= link_to project.name, project %></li>
           <% end %>
+          <li><%= link_to "Add a project", new_project_path %></li>
         </ul>
         <p>Zones:</p>
         <ul>
           <% @zones.each do |zone| %>
             <li><%= link_to zone.name, zone %></li>
           <% end %>
+          <li><%= link_to "Add a zone", new_zone_path %></li>
         </ul>
 
       </div>

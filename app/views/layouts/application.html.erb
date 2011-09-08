@@ -12,7 +12,10 @@
   </div>
   <div class="container-fluid">
       <div class="sidebar">
-        <p><%= link_to "Inbox", tasks_path(:view => "inbox") %> (<%= @inbox_count %>)</p>
+        <p>
+          <%= link_to "Inbox", tasks_path(:view => "inbox") %>
+          <%= "(#{@inbox_count})" if @inbox_count > 0 %>
+        </p>
         <p><%= link_to "Today", tasks_path %></p>
         <p>Projects:</p>
         <ul>

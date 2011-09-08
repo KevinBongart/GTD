@@ -7,8 +7,30 @@
   <%= csrf_meta_tag %>
 </head>
 <body>
+  <div id="header">
+    <h1>To Do</h1>
+  </div>
+  <div class="container-fluid">
+      <div class="sidebar">
+        <p><%= link_to "Inbox", tasks_path(:view => "inbox") %></p>
+        <p><%= link_to "Today", tasks_path %></p>
+        <p>Projects:</p>
+        <ul>
+          <% @projects.each do |project| %>
+            <li><%= link_to project.name, project %></li>
+          <% end %>
+        </ul>
+        <p>Zones:</p>
+        <ul>
+          <% @zones.each do |zone| %>
+            <li><%= link_to zone.name, zone %></li>
+          <% end %>
+        </ul>
 
-<%= yield %>
-
+      </div>
+      <div class="content">
+        <%= yield %>
+      </div>
+    </div>
 </body>
 </html>

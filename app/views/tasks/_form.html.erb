@@ -11,27 +11,32 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
+  <div class="clearfix">
+    <%= f.label :name %>
+    <div class="input">
+      <%= f.text_field :name %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :due_date %><br />
-    <%= f.date_select :due_date %>
+  <div class="clearfix">
+    <%= f.label :due_date %>
+    <div class="input">
+      <%= f.date_select :due_date %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :project_id %><br />
-    <%= f.text_field :project_id %>
+  <div class="clearfix">
+    <%= f.label :project_id %>
+    <div class="input">
+      <%= f.collection_select(:project_id, Project.all, :id, :name, :prompt => true) %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :area_id %><br />
-    <%= f.text_field :area_id %>
+  <div class="clearfix">
+    <%= f.label :zone_id %>
+    <div class="input">
+      <%= f.collection_select(:zone_id, Zone.all, :id, :name, :prompt => true) %>
+    </div>  
   </div>
-  <div class="field">
-    <%= f.label :done %><br />
-    <%= f.check_box :done %>
-  </div>
+
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit :class => "btn primary" %>
   </div>
 <% end %>

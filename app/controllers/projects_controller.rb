@@ -1,19 +1,9 @@
 class ProjectsController < ApplicationController
-  # GET /projects
-  # GET /projects.xml
-  def index
-    @projects = Project.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @projects }
-    end
-  end
-
   # GET /projects/1
   # GET /projects/1.xml
   def show
     @project = Project.find(params[:id])
+    @tasks = @project.tasks
 
     respond_to do |format|
       format.html # show.html.erb
@@ -76,7 +66,7 @@ class ProjectsController < ApplicationController
     @project.destroy
 
     respond_to do |format|
-      format.html { redirect_to(projects_url) }
+      format.html { redirect_to(root_path) }
       format.xml  { head :ok }
     end
   end

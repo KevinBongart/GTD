@@ -1,10 +1,44 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Name:</b>
-  <%= @zone.name %>
-</p>
+<h2><%= @zone.name %></h2>
 
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th>Due date</th>
+    <th>Project</th>
+    <th>Zone</th>
+    <th></th>
+    <th></th>
+  </tr>
 
-<%= link_to 'Edit', edit_zone_path(@zone) %> |
-<%= link_to 'Back', zones_path %>
+  <% @tasks.each do |task| %>
+    <tr>
+      <th>
+        <% if task.done? %>
+          [&#10003;]
+        <% else %>
+          <%= link_to "[ ]", complete_task_path(:id => task.id) %>
+        <% end %>
+      </th>
+
+      <td><%= task.name %></td>
+      <td>
+        <% if task.due_date.past? %>
+          <%= time_ago_in_words(task.due_date) %> ago
+        <% else %>
+          in <%= time_ago_in_words(task.due_date) %>
+        <% end %>
+      </td>
+      <td><%= link_to(task.project.name, task.project) if task.project %></td>
+      <td><%= link_to(task.zone.name, task.zone) if task.zone %></td>
+      <td><%= link_to 'Edit', edit_task_path(task) %></td>
+      <td><%= link_to 'Delete', task, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Task', new_task_path %>

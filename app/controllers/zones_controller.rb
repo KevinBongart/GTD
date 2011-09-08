@@ -1,19 +1,9 @@
 class ZonesController < ApplicationController
-  # GET /zones
-  # GET /zones.xml
-  def index
-    @zones = Zone.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @zones }
-    end
-  end
-
   # GET /zones/1
   # GET /zones/1.xml
   def show
     @zone = Zone.find(params[:id])
+    @tasks = @zone.tasks
 
     respond_to do |format|
       format.html # show.html.erb
@@ -76,7 +66,7 @@ class ZonesController < ApplicationController
     @zone.destroy
 
     respond_to do |format|
-      format.html { redirect_to(zones_url) }
+      format.html { redirect_to(root_path) }
       format.xml  { head :ok }
     end
   end

@@ -2,7 +2,11 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.xml
   def index
-    @tasks = Task.all
+    if params[:view] == "inbox"
+      @tasks = Task.inbox
+    else
+      @tasks = Task.all
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -42,14 +46,10 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(params[:task])
 
-    respond_to do |format|
-      if @task.save
-        format.html { redirect_to(@task, :notice => 'Task was successfully created.') }
-        format.xml  { render :xml => @task, :status => :created, :location => @task }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @task.errors, :status => :unprocessable_entity }
-      end
+    if @task.save
+      redirect_to root_path
+    else
+      render :action => "edit"
     end
   end
 
@@ -60,11 +60,9 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       if @task.update_attributes(params[:task])
-        format.html { redirect_to(@task, :notice => 'Task was successfully updated.') }
-        format.xml  { head :ok }
+        redirect_to root_path
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @task.errors, :status => :unprocessable_entity }
+        render :action => "edit"
       end
     end
   end
@@ -79,5 +77,12 @@ class TasksController < ApplicationController
       format.html { redirect_to(tasks_url) }
       format.xml  { head :ok }
     end
+  end
+
+  def complete
+    @task = Task.find(params[:id])
+    @task.update_attribute(:done, true)
+
+    redirect_to root_path
   end
 end

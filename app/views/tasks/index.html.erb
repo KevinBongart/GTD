@@ -1,27 +1,36 @@
-<h1>Listing tasks</h1>
-
 <table>
   <tr>
+    <th></th>
     <th>Name</th>
     <th>Due date</th>
     <th>Project</th>
-    <th>Area</th>
-    <th>Done</th>
-    <th></th>
+    <th>Zone</th>
     <th></th>
     <th></th>
   </tr>
 
 <% @tasks.each do |task| %>
   <tr>
+    <th>
+      <% if task.done? %>
+        [&#10003;]
+      <% else %>
+        <%= link_to "[ ]", complete_task_path(:id => task.id) %>
+      <% end %>
+    </th>
+
     <td><%= task.name %></td>
-    <td><%= task.due_date %></td>
-    <td><%= task.project_id %></td>
-    <td><%= task.area_id %></td>
-    <td><%= task.done %></td>
-    <td><%= link_to 'Show', task %></td>
+    <td>
+      <% if task.due_date.past? %>
+        <%= time_ago_in_words(task.due_date) %> ago
+      <% else %>
+        in <%= time_ago_in_words(task.due_date) %>
+      <% end %>
+    </td>
+    <td><%= task.project.name if task.project %></td>
+    <td><%= task.zone.name if task.zone %></td>
     <td><%= link_to 'Edit', edit_task_path(task) %></td>
-    <td><%= link_to 'Destroy', task, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Delete', task, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>

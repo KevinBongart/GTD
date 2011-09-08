@@ -10,16 +10,19 @@
   <%= @task.due_date %>
 </p>
 
-<p>
-  <b>Project:</b>
-  <%= @task.project_id %>
-</p>
+<% if @task.project %>
+  <p>
+    <b>Project:</b>
+    <%= @task.project.name %>
+  </p>
+<% end %>
 
-<p>
-  <b>Area:</b>
-  <%= @task.area_id %>
-</p>
-
+<% if @task.zone %>
+  <p>
+    <b>Zone:</b>
+    <%= @task.zone.name %>
+  </p>
+<% end %>
 <p>
   <b>Done:</b>
   <%= @task.done %>

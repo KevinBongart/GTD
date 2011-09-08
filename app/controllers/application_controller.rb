@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :find_projects
   before_filter :find_zones
+  before_filter :inbox_count
 
 private
 
@@ -12,5 +13,9 @@ private
 
   def find_zones
     @zones = Zone.all
+  end
+
+  def inbox_count
+    @inbox_count = Task.inbox.count
   end
 end
